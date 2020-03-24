@@ -1,0 +1,143 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+
+<div class="container-fluid">
+  <div class="row" >
+    {% for note in notes %}
+    <div class="col-lg-4 col-md-6" id="note-cards">
+        <div class="card" id="note-card-item">
+          <div class="card-header">
+              <div class="btn-toolbar pull-right">
+                <div class="btn-group">
+                <span>
+                  <a class="btn btn-md" href="/delete/{{note.id}}" style="border-radius: 0;">
+                    <button type="button" class="btn btn-default btn-sm">
+                      <i class="far fa-trash-alt"></i>
+                    </button>
+                  </a>
+
+
+                  <a class="btn btn-md" id="update-note" href="/update/{{note.id}}" data-toggle="modal" data-target="#updateNote{{note.id}}" style="border-radius: 0;">
+                    <button type="button" class="btn btn-default btn-sm">
+                      <i class="far fa-edit"></i>
+                    </button>
+                  </a>
+                </span>
+              </div>
+            </div>
+            <h5> {{ note.date_created.date() | date_format }} </h5>
+
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">{{ note.title }}</h5>
+            <p class="card-text">{{ note.content }}</p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+          </div>
+        </div>
+        <div class="modal fade" id="updateNote{{note.id}}" tabindex="-1" role="dialog" aria-labelledby="updateNoteLable" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="updateNoteLable">Update Note</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+               <div class="form">
+                  <form action="/update/{{note.id}}" method="POST">
+                    <div class="form-group">
+                      <label for="note-title" class="col-form-label">Title:</label>
+                      <input type="text" class="form-control" name="note-title" id="note-title" value = "{{ note.title }}" placeholder="Title of your note">
+                    </div>
+                    <div class="form-group">
+                      <label for="note-content" class="col-form-label">Content:</label>
+                      <textarea class="form-control" name="note-content" id="note-content">{{ note.content }}</textarea>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      <button type="submit" class="btn btn-primary" id="update-note" value="Update">Update Note</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+             </div>
+            </div>
+          </div>
+      </div>
+    {% endfor %}
+</div>
+<!--
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <!--<th scope="col">#</th> end comment here
+        <th scope="col">Title</th>
+        <th scope="col">Content</th>
+        <th scope="col">Date</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody id="table-content">
+      {% for note in notes %}
+      <tr>
+      <!--  <th scope="row">{{ note.id }}</th> end comment here
+        <td>{{ note.title }}</td>
+        <td>{{ note.content }}</td>
+        <td>{{ note.date_created.date() | date_format }}</td>
+        <td>
+          <span>
+            <span>
+              <a class="btn btn-xl" href="/delete/{{note.id}}" style="border-radius: 0;">
+                <button type="button" class="btn btn-default btn-sm">
+                  <i class="far fa-trash-alt"></i>
+                </button>
+              </a>
+            </span>
+            <span>
+              <a class="btn btn-xl" id="update-note" href="/update/{{note.id}}" data-toggle="modal" data-target="#updateNote{{note.id}}" style="border-radius: 0;">
+                <button type="button" class="btn btn-default btn-sm">
+                  <i class="far fa-edit"></i>
+                </button>
+              </a>
+            </span>
+          </span>
+          <div class="modal fade" id="updateNote{{note.id}}" tabindex="-1" role="dialog" aria-labelledby="updateNoteLable" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="updateNoteLable">Update Note</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                 <div class="form">
+                    <form action="/update/{{note.id}}" method="POST">
+                      <div class="form-group">
+                        <label for="note-title" class="col-form-label">Title:</label>
+                        <input type="text" class="form-control" name="note-title" id="note-title" value = "{{ note.title }}" placeholder="Title of your note">
+                      </div>
+                      <div class="form-group">
+                        <label for="note-content" class="col-form-label">Content:</label>
+                        <textarea class="form-control" name="note-content" id="note-content">{{ note.content }}</textarea>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary" id="update-note" value="Update">Update Note</button>
+                      </div>
+                    </form>
+                  </div>
+                 </div>
+                </div>
+              </div>
+            </div>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table> -->
+
+{% endblock %}
