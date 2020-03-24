@@ -1,1 +1,1 @@
-web: gunicorn app:notify --preload
+web: gunicorn notify:app --preload
